@@ -1,10 +1,10 @@
-package com.example.coupon_system;
+package org.example.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CouponSystemApplicationTests {
+class ApiApplicationTests {
 
 	@Test
 	void contextLoads() {
