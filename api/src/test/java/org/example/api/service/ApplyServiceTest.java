@@ -50,4 +50,28 @@ class ApplyServiceTest {
         long count = couponRepository.count();
         Assertions.assertThat(count).isEqualTo(100);
     }
+
+    @Test
+    public void 여러명응모_Redis() throws InterruptedException {
+
+        int threadCount = 1000;
+        ExecutorService executorService = Executors.newFixedThreadPool(32);
+        CountDownLatch countDownLatch = new CountDownLatch(threadCount);
+
+        for (int i = 0; i < threadCount; i++) {
+            long userId = i;
+            executorService.execute(() -> {
+                try {
+                    applyService.applyToRedis(userId);
+                }finally {
+                    countDownLatch.countDown();
+                }
+            });
+        }
+
+        countDownLatch.await();
+
+        long count = couponRepository.count();
+        Assertions.assertThat(count).isEqualTo(100);
+    }
 }
