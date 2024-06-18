@@ -19,4 +19,13 @@ public class CouponCountRepository {
             .increment("coupon_count", 1L);
     }
 
+    public void clear() {
+        redisTemplate
+            .getConnectionFactory()
+            .getConnection()
+            .serverCommands()
+            .flushAll();
+
+    }
+
 }
